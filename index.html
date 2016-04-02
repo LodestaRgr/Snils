@@ -1,0 +1,140 @@
+<!DOCTYPE HTML><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>test</title>
+	<script src="script/jquery-1.12.2.min.js"></script>
+	<script src="script/jquery.inputmask.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+			$(document).ready(function(){
+
+				var inp = $("#nmpd .display"),
+					inplen = 0,
+					container = $('#content');
+
+					inp.inputmask("999-999-999 99")
+
+					$.ajaxSetup({//время ожидания ответа от сервера 20 сек.
+						timeout: 20000
+					});
+
+					inp.val("");
+
+				//ввод цифр
+				$("#nmpd .numero").bind("click", function(e){
+					//Ограничение в 11 цифр
+					if (inplen < 11){
+						inplen = inplen+1;
+						inp.val(inp.inputmask('unmaskedvalue')+$(this).text());
+					}
+				});
+
+				//кнопка Del
+				$("#nmpd .del").bind("click", function(e){
+					//если есть хотябы одна цифра
+					if (inplen>0){
+						inp.val(inp.inputmask('unmaskedvalue').toString().substr(0,inplen-1));
+						inplen = inplen-1;
+					}
+				});
+
+				//При ручном вводе пересчет inplen
+				inp.on("keyup", function(e){
+					inplen = inp.inputmask('unmaskedvalue').length;
+				});
+
+				//Отправка запроса
+				$("#nmpd .submit").click(function(){
+					//alert(inp.inputmask('unmaskedvalue'));
+
+					snils=inp.inputmask('unmaskedvalue');
+
+					container.html("Подождите...");
+
+					if (snils.length == 11){
+
+						container.load("http://r15.fss.ru/168882/index.phtml .title-snils div", {'SNILS':snils},
+						function(response, status, xhr){
+							if (status=='success') {
+								if(container.html() == ""){
+									container.html("В базе данных СНИЛС " + snils + " не найден.Проверьте правильность ввода СНИЛС.");
+								}
+							} else {
+								container.html("Нет доступа к серверу");
+							}
+						});
+
+					}else{
+						container.html("Введён неверный номер СНИЛС. Следует ввести все 11 цифр номера без посторонних знаков. Например 12345678901");
+					}
+				});
+			});
+
+		</script>
+
+</head>
+<body>
+
+<div id="nmpd">
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="3">
+					<input class="display" type="text" value="">
+				</td>
+				<td>
+					<button class="del" type="button" style="width: 100%;">&lt; Удалить</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">1</button>
+				</td>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">2</button>
+				</td>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">3</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">4</button>
+				</td>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">5</button>
+				</td>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">6</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">7</button>
+				</td>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">8</button>
+				</td>
+				<td>
+					<button class="numero" type="button" style="width: 100%;">9</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<button class="numero" type="button" style="width: 100%;">0</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<button class="submit" type="button" style="width: 100%;">Проверить</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="content"></div>
+
+11336517729
+</body>
+</html>
