@@ -74,7 +74,8 @@
 
 		var inp = $("#nmpd .display"),
 			inplen = 0,
-			container = $('#content');
+			container = $('#content'),
+			srvadr = "http://r15.fss.ru/168882/index.phtml .title-snils div";
 
 			inp.inputmask("999-999-999 99")
 
@@ -116,20 +117,36 @@
 			container.html("Подождите...");
 
 			if (snils.length == 11){
-
-				container.load("http://r15.fss.ru/168882/index.phtml .title-snils div", {'SNILS':snils},
+				//для загрузки этой страницы необходим достуа к кросс-доменным запросам:
+				// - в IE настроить: Свойства браузера > Безопасность > Надежные узлы > Другой...
+				//   Разное > Доступ к источникам данных > Включить
+				//   Еще хорошо бы добавить адрес сайта в "Надежные сайты" кнопка Сайты
+				// - в FireFox: Вкладка Дополнения > Расширения > найти и установить "cors everywhere".
+				//   Затем "Изменить" в меню браузера, перетацить кнопку "CorsE" (запуск вручную).
+				//   Для автоматического запуска плагина "cors_everywhere" при старке FireFox
+				//   1. В строке адреса вбить "about:config"
+				//   2. В любом месте тыкнуть "правую кнопку мыши"
+				//   3. "Создать" > "Логическое"
+				//   4. Ввести имя "extensions.spenibus_corsEverywhere.enabledAtStartup"
+				//   5. Выбирите "true"
+				// - или же на сервера прописать права "Access-Control-Allow-Origin *",
+				//   например в .htaccess:   Header add Access-Control-Allow-Origin "*"
+				container.load(srvadr, {'SNILS':snils},
 				function(response, status, xhr){
 					if (status=='success') {
 						if(container.html() == ""){
-							container.html("<p>В базе данных СНИЛС " + snils + " не найден.Проверьте правильность ввода СНИЛС.</p>");
+							container.html(	"<p>В базе данных СНИЛС (<b>" + inp.val() + "</b>) не найден.</p>" +
+											"<p>Проверьте правильность ввода СНИЛС.</p>");
 						}
 					} else {
-						container.html("<p>Нет доступа к серверу. Повторите попытку позже.</p>");
+						container.html(	"<p>Нет доступа к серверу.</p>" +
+										"<p>Повторите попытку позже...</p>");
 					}
 				});
 
 			}else{
-				container.html("<p>Введён неверный номер СНИЛС. Следует ввести все 11 цифр номера без посторонних знаков. Например <i>12345678901</i></p>");
+				container.html(	"<p>Введён неверный номер СНИЛС.</p>" +
+								"<p>Следует ввести все 11 цифр номера.</p>");
 			}
 		});
 	});
