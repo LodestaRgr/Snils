@@ -4,6 +4,61 @@
 	<title>test</title>
 	<script src="script/jquery-1.12.2.min.js"></script>
 	<script src="script/jquery.inputmask.min.js" type="text/javascript"></script>
+	<style>
+	.popup-box {
+		position: absolute;
+		border-radius: 5px;
+		background: #fff;
+		display: none;
+		box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+		font-family: Arial, sans-serif;
+		z-index: 9999999;
+		font-size: 14px;
+	}
+
+	.popup-box .close {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: bold;
+		cursor: pointer;
+		color: #434343;
+		padding: 20px;
+		font-size: 20px;
+	}
+
+	.popup-box .close:hover {
+		color: #000;
+	}
+
+	.popup-box h2 {
+		padding: 0;
+		margin: 0;
+		font-size: 18px;
+	}
+	.popup-box .top {
+		padding: 20px;
+	}
+
+	.popup-box .bottom {
+		background: #eee;
+		border-top: 1px solid #e5e5e5;
+		padding: 20px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+
+	#blackout {
+		background: rgba(0,0,0,0.3);
+		position: absolute;
+		top: 0;
+		overflow: hidden;
+		z-index: 9999;
+		left: 0;
+		display: none;
+	}
+	</style>
 </head>
 <body>
 
@@ -65,7 +120,9 @@
 	</table>
 </div>
 
+<div class="popup-box" id="popup-box-1"><div class="close">X</div>
 <div id="content"></div>
+</div>
 
 11336517729
 
@@ -109,7 +166,7 @@
 		});
 
 		//Отправка запроса
-		$("#nmpd .submit").click(function(){
+		$("#nmpd .submit").click(function(e){
 			//alert(inp.inputmask('unmaskedvalue'));
 
 			snils=inp.inputmask('unmaskedvalue');
@@ -148,8 +205,76 @@
 				container.html(	"<p>Введён неверный номер СНИЛС.</p>" +
 								"<p>Следует ввести все 11 цифр номера.</p>");
 			}
+
+// --- popup --------------
+
+			/* Предотвращаем действия по умолчанию */
+			e.preventDefault();
+			e.stopPropagation();
+
+			/* Получаем id (последний номер в имени класса ссылки) */
+			var scrollPos = $(window).scrollTop();
+
+			/* Корректный вывод popup окна, накрытие тенью, предотвращение скроллинга */
+			$('#popup-box-1').show();
+			$('#blackout').show();
+			$('html,body').css('overflow', 'hidden');
+
+			/* Убираем баг в Firefox */
+			$('html').scrollTop(scrollPos);
+
 		});
+
+	$('body').append('<div id="blackout"></div>');
+
+	function centerBox() {
+
+		/* Preliminary information */
+		var winWidth = $(window).width();
+		var winHeight = $(document).height();
+		var scrollPos = $(window).scrollTop();
+
+		/* auto scroll bug */
+
+		/* Calculate positions */
+
+		var disHeight = scrollPos + (winHeight /2) - 50;
+
+		/* Move stuff about */
+		$('.popup-box').css({'width' : '100%', 'left' : '0px', 'top' : disHeight+'px'});
+		$('#blackout').css({'width' : winWidth+'px', 'height' : winHeight+'px'});
+
+		return false;
+	}
+
+	$(window).resize(centerBox);
+	$(window).scroll(centerBox);
+	centerBox();
+
+     $('[class*=popup-box]').click(function(e) {
+         /* Предотвращаем работу ссылки, если она являеться нашим popup окном */
+         e.stopPropagation();
+     });
+
+     $('html').click(function() {
+         var scrollPos = $(window).scrollTop();
+         /* Скрыть окно, когда кликаем вне его области */
+         $('[id^=popup-box-]').hide();
+         $('#blackout').hide();
+         $("html,body").css("overflow","auto");
+         $('html').scrollTop(scrollPos);
+     });
+	 
+     $('.close').click(function() {
+         var scrollPos = $(window).scrollTop();
+         /* Скрываем тень и окно, когда пользователь кликнул по X */
+         $('[id^=popup-box-]').hide();
+         $('#blackout').hide();
+         $("html,body").css("overflow","auto");
+         $('html').scrollTop(scrollPos);
+     });
 	});
+
 </script>
 </body>
 </html>
