@@ -1,26 +1,27 @@
-<!DOCTYPE HTML><html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SNILS</title>
-	<script src="script/jquery-1.12.2.min.js"></script>
-	<script src="script/jquery.inputmask.min.js" type="text/javascript"></script>
-	<style>
+<style>
 	.popup-box {
 		position: absolute;
 		background: #fff;
 		display: none;
-		box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 		font-family: Calibri, Arial, sans-serif;
 		font-size: 42px;
 		text-align: center;
+		line-height: normal;
 		z-index: 9999999;
 	}
 
 	.close {
-	  	display: inline-block;
+		display: inline-block;
 		width: 300px;
 		background: #003CF0;
-		box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 		font-family: Calibri, Arial, sans-serif;
 		font-size: 36px;
 		text-align: center;
@@ -31,7 +32,7 @@
 	}
 
 	#blackout {
-		background: rgba(0,0,0,0.3);
+		background: rgba(0, 0, 0, 0.3);
 		position: absolute;
 		top: 0;
 		overflow: hidden;
@@ -47,9 +48,9 @@
 	}
 
 	#nmpd .bgimg {
-		position:fixed;
+		position: fixed;
 		background-image: url('./snils.jpg');
-		width:750px;
+		width: 750px;
 		height: 509px;
 		z-index: 9999;
 	}
@@ -58,7 +59,7 @@
 		z-index: 999999;
 		position: relative;
 		top: 152px;
-		left:192px;
+		left: 192px;
 	}
 
 	#nmpd .t2 {
@@ -68,61 +69,75 @@
 		left: 400px;
 	}
 
-	#nmpd .display, .numero, .del, .submit{
-		box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+	#nmpd .display,
+	.numero,
+	.del,
+	.submit {
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 		font-family: Arial, sans-serif;
 		font-size: 42px;
-		font-weight:bold;
+		font-weight: bold;
 		text-align: center;
 		margin: 0 5px 5px 0;
-	    width: 60px;
-	    height: 60px;
-	    line-height: 40px;
-	    background: #fff;
-	    border: 2px solid #000000;
+		width: 60px;
+		height: 60px;
+		line-height: 40px;
+		background: #fff;
+		border: 2px solid #000000;
 		border-radius: 15px;
 		opacity: 0.8;
-	    -moz-border-radius: 5px;
-	    -webkit-border-radius: 5px;
-	    -webkit-box-shadow: 0px 1px 3px #000000;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		-webkit-box-shadow: 0px 1px 3px #000000;
+		-webkit-transition-duration: 0.2s;
+		-webkit-transition-delay: 0.1s;
+		-webkit-transition-timing-function: ease;
+		transition-duration: 0.2s;
+		transition-delay: 0.1s;
+		transition-timing-function: ease;
 	}
 
-	#nmpd .numero:active, .del:active {
+	#nmpd .numero:active,
+	.del:active {
 		position: relative;
-	    top: 2px;
-	    left: 2px;
-	    /* border-color: #e5e5e5; */
-	    border-color: #000000;
-	    background: #003CF0;
-	    cursor: pointer;
-	    color: #ffffff;
+		top: 2px;
+		left: 2px;
+		/* border-color: #e5e5e5; */
+		border-color: #000000;
+		background: #003CF0;
+		cursor: pointer;
+		color: #ffffff;
+		-webkit-transition-duration: 0s;
+		-webkit-transition-delay: 0s;
+		transition-duration: 0s;
+		transition-delay: 0s;
 	}
 
-	#nmpd .display{
-		width:400px;
+	#nmpd .display {
+		width: 400px;
 	}
 
-	#nmpd .del, .submit{
-		width:220px;
+	#nmpd .del,
+	.submit {
+		width: 220px;
 	}
 
-	#nmpd #zero{
-		width:97%;
+	#nmpd #zero {
+		width: 97%;
 	}
 
-	#nmpd .del{
+	#nmpd .del {
 		font-size: 32px;
 	}
 
-
-	#nmpd .submit{
+	#nmpd .submit {
 		background: #003CF0;
 		color: #fff;
 		border: 0px;
 	}
-
-	</style>
+</style>
 </head>
+
 <body>
 <div id="nmpd">
 	<div class="bgimg"></div>
@@ -186,19 +201,23 @@
 </div>
 <div class="popup-box" id="popup-box-1">
 	<div id="content"></div>
-	<p><div class="close"><b>закрыть</b></div></p>
+	<p>
+		<div class="close"><b>закрыть</b></div>
+	</p>
 </div>
+	11336517729
 
-11336517729
 
+<script src="script/jquery-1.12.2.min.js"></script>
+<script src="script/jquery.inputmask.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 
 
 		$('#nmpd').css({
-						'top': $(document).height()/2 - $('#nmpd').height()/2 + 'px',
-						'left' : $(window).width()/2 - $('#nmpd').width()/2 + 'px'
-					   });
+			'top': $(document).height() / 2 - $('#nmpd').height() / 2 + 'px',
+			'left': $(window).width() / 2 - $('#nmpd').width() / 2 + 'px'
+		});
 
 
 		var inp = $("#nmpd .display"),
@@ -206,48 +225,48 @@
 			container = $('#content'),
 			srvadr = "http://r15.fss.ru/168882/index.phtml .title-snils div";
 
-			inp.inputmask("999-999-999 99")
+		inp.inputmask("999-999-999 99")
 
-			$.ajaxSetup({//время ожидания ответа от сервера 20 сек.
-				timeout: 20000
-			});
+		$.ajaxSetup({ //время ожидания ответа от сервера 20 сек.
+			timeout: 20000
+		});
 
-			inp.val("");
+		inp.val("");
 
 		//ввод цифр
-		$("#nmpd .numero").bind("click", function(e){
+		$("#nmpd .numero").bind("click", function(e) {
 			//Ограничение в 11 цифр
-			if (inplen < 11){
-				inplen = inplen+1;
-				inp.val(inp.inputmask('unmaskedvalue')+$(this).text());
+			if (inplen < 11) {
+				inplen = inplen + 1;
+				inp.val(inp.inputmask('unmaskedvalue') + $(this).text());
 			}
 		});
 
 		//кнопка Del
-		$("#nmpd .del").bind("click", function(e){
+		$("#nmpd .del").bind("click", function(e) {
 			//если есть хотябы одна цифра
-			if (inplen>0){
-				inp.val(inp.inputmask('unmaskedvalue').toString().substr(0,inplen-1));
-				inplen = inplen-1;
+			if (inplen > 0) {
+				inp.val(inp.inputmask('unmaskedvalue').toString().substr(0, inplen - 1));
+				inplen = inplen - 1;
 			}
 		});
 
 		//При ручном вводе пересчет inplen
-		inp.on("keyup", function(e){
+		inp.on("keyup", function(e) {
 			inplen = inp.inputmask('unmaskedvalue').length;
 		});
 
 		//Отправка запроса
-		$("#nmpd .submit").click(function(e){
+		$("#nmpd .submit").click(function(e) {
 			//alert(inp.inputmask('unmaskedvalue'));
 
-			snils=inp.inputmask('unmaskedvalue');
+			snils = inp.inputmask('unmaskedvalue');
 
 			container.html("<p>Подождите...</p>");
 			$('.close').hide();
 			centerBox();
 
-			if (snils.length == 11){
+			if (snils.length == 11) {
 				//для загрузки этой страницы необходим достуа к кросс-доменным запросам:
 				// - в IE настроить: Свойства браузера > Безопасность > Надежные узлы > Другой...
 				//   Разное > Доступ к источникам данных > Включить
@@ -262,29 +281,31 @@
 				//   5. Выбирите "true"
 				// - или же на сервера прописать права "Access-Control-Allow-Origin *",
 				//   например в .htaccess:   Header add Access-Control-Allow-Origin "*"
-				container.load(srvadr, {'SNILS':snils},
-				function(response, status, xhr){
-					if (status=='success') {
-						if(container.html() == ""){
-							container.html(	"<p>В базе данных СНИЛС (<b>" + inp.val() + "</b>) не найден.</p>" +
-											"<p>Проверьте правильность ввода СНИЛС.</p>");
+				container.load(srvadr, {
+						'SNILS': snils
+					},
+					function(response, status, xhr) {
+						if (status == 'success') {
+							if (container.html() == "") {
+								container.html("<p>В базе данных СНИЛС (<b>" + inp.val() + "</b>) не найден.</p>" +
+									"<p>Проверьте правильность ввода СНИЛС.</p>");
+							}
+							$('.close').show();
+							centerBox();
+						} else {
+							container.html("<p>Сервис временно недоступен.</p>" +
+								"<p>Повторите попытку позже ...</p>");
+							$('.close').show();
+							centerBox();
 						}
-						$('.close').show();
-						centerBox();
-					} else {
-						container.html(	"<p>Сервис временно недоступен.</p>" +
-										"<p>Повторите попытку позже ...</p>");
-						$('.close').show();
-						centerBox();
-					}
-				});
-			}else{
-				container.html(	"<p>Введён неверный номер СНИЛС.</p>" +
-								"<p>Следует ввести все 11 цифр номера.</p>");
+					});
+			} else {
+				container.html("<p>Введён неверный номер СНИЛС.</p>" +
+					"<p>Следует ввести все 11 цифр номера.</p>");
 				$('.close').show();
 				centerBox();
 			}
-// --- popup --------------
+			// --- popup --------------
 
 			/* Предотвращаем действия по умолчанию */
 			e.preventDefault();
@@ -303,58 +324,64 @@
 
 		});
 
-	$('body').append('<div id="blackout"></div>');
+		$('body').append('<div id="blackout"></div>');
 
-	function centerBox() {
+		function centerBox() {
 
-		/* Preliminary information */
-		var winWidth = $(window).width();
-		var winHeight = $(document).height();
-		var scrollPos = $(window).scrollTop();
+			/* Preliminary information */
+			var winWidth = $(window).width();
+			var winHeight = $(document).height();
+			var scrollPos = $(window).scrollTop();
 
-		/* auto scroll bug */
+			/* auto scroll bug */
 
-		/* Calculate positions */
+			/* Calculate positions */
 
-		var disHeight = scrollPos + (winHeight /2) - ($('.popup-box').height()/2);
+			var disHeight = scrollPos + (winHeight / 2) - ($('.popup-box').height() / 2);
 
-		/* Move stuff about */
-		$('.popup-box').css({'width' : '100%', 'left' : '0px', 'top' : disHeight+'px'});
-		$('#blackout').css({'width' : winWidth+'px', 'height' : winHeight+'px'});
+			/* Move stuff about */
+			$('.popup-box').css({
+				'width': '100%',
+				'left': '0px',
+				'top': disHeight + 'px'
+			});
+			$('#blackout').css({
+				'width': winWidth + 'px',
+				'height': winHeight + 'px'
+			});
 
-		return false;
-	}
+			return false;
+		}
 
-	$(window).resize(centerBox);
-	$(window).scroll(centerBox);
-	centerBox();
+		$(window).resize(centerBox);
+		$(window).scroll(centerBox);
+		centerBox();
 
-	$('.popup-box').click(function(e) {
-		/* Предотвращаем работу ссылки, если она являеться нашим popup окном */
+		$('.popup-box').click(function(e) {
+			/* Предотвращаем работу ссылки, если она являеться нашим popup окном */
 			e.stopPropagation();
+		});
+
+		$('html').click(function() {
+			var scrollPos = $(window).scrollTop();
+			/* Скрыть окно, когда кликаем вне его области */
+			$('#popup-box-1').hide();
+			$('#blackout').hide();
+			$('.close').hide();
+			$("html").css("overflow", "auto");
+			$('html').scrollTop(scrollPos);
+		});
+
+		$('.close').click(function() {
+			var scrollPos = $(window).scrollTop();
+			/* Скрываем тень и окно, когда пользователь кликнул по X */
+			$('#popup-box-1').hide();
+			$('#blackout').hide();
+			$('.close').hide();
+			$("html").css("overflow", "auto");
+			$('html').scrollTop(scrollPos);
+		});
 	});
-
-     $('html').click(function() {
-         var scrollPos = $(window).scrollTop();
-         /* Скрыть окно, когда кликаем вне его области */
-         $('#popup-box-1').hide();
-         $('#blackout').hide();
-		 $('.close').hide();
-         $("html").css("overflow","auto");
-         $('html').scrollTop(scrollPos);
-     });
-
-     $('.close').click(function() {
-         var scrollPos = $(window).scrollTop();
-         /* Скрываем тень и окно, когда пользователь кликнул по X */
-         $('#popup-box-1').hide();
-         $('#blackout').hide();
-		 $('.close').hide();
-         $("html").css("overflow","auto");
-         $('html').scrollTop(scrollPos);
-     });
-	});
-
 </script>
 </body>
 </html>
