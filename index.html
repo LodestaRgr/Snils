@@ -244,7 +244,7 @@
 
 		//кнопка Del
 		$("#nmpd .del").bind("click", function(e) {
-			//если есть хотябы одна цифра
+			//если есть хотя бы одна цифра
 			if (inplen > 0) {
 				inp.val(inp.inputmask('unmaskedvalue').toString().substr(0, inplen - 1));
 				inplen = inplen - 1;
@@ -358,7 +358,7 @@
 		centerBox();
 
 		$('.popup-box').click(function(e) {
-			/* Предотвращаем работу ссылки, если она являеться нашим popup окном */
+			/* Предотвращаем работу ссылки, если она является нашим popup окном */
 			e.stopPropagation();
 		});
 
